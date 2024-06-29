@@ -3,6 +3,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useReducer } from "react";
 import { Button } from "../ui/button";
+import Link from "next/link";
+import { log } from "console";
+import { register } from "module";
+import { type } from "os";
 
 interface AuthFormProps {
   type: "login" | "register";
@@ -106,6 +110,26 @@ export default function AuthForm({ type }: AuthFormProps) {
           }[type]
         }
       </Button>
+      {
+        {
+          login: (
+            <p>
+              Don&apos;t have an account?{" "}
+              <Link className="underline text-blue-500" href="/register">
+                Register
+              </Link>
+            </p>
+          ),
+          register: (
+            <p>
+              Already have an account?{" "}
+              <Link className="underline text-blue-500" href="/login">
+                Login
+              </Link>
+            </p>
+          ),
+        }[type]
+      }
     </div>
   );
 }
