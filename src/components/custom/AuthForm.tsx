@@ -1,12 +1,12 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 import { useReducer } from "react";
 import { Button } from "../ui/button";
-import Link from "next/link";
-import { log } from "console";
-import { register } from "module";
-import { type } from "os";
+import ky from "ky";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 
 interface AuthFormProps {
   type: "login" | "register";
@@ -45,18 +45,53 @@ export default function AuthForm({ type }: AuthFormProps) {
       confirmPassword: "",
     },
   );
+  const { toast } = useToast();
+  const router = useRouter();
 
-  const onLoign = () => {
-    console.log("Logging in with", state.email, state.password);
+  const onLoign = async () => {
+    try {
+      const response = await ky("/api/auth/login", {
+        method: "POST",
+        json: {
+          email: state.email,
+          password: state.password,
+        },
+      });
+      if (response.status === 200) {
+        // toast and replace with login
+        toast({
+          title: "Logged in",
+          description: "You are now logged in",
+        });
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  const onRegister = () => {
-    console.log(
-      "Registering with",
-      state.email,
-      state.password,
-      state.confirmPassword,
-    );
+  const onRegister = async () => {
+    try {
+      if (state.password !== state.confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
+      const res = await ky("/api/auth/register", {
+        method: "POST",
+        json: {
+          email: state.email,
+          password: state.password,
+        },
+      });
+      if (res.status === 201) {
+        // toast and replace with login
+        toast({
+          title: "Account created",
+          description: "You can now login",
+        });
+        router.push("/login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
