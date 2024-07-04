@@ -27,7 +27,9 @@ export default function WritePostForm() {
   const submit = async () => {
     try {
       await ky.post("/api/posts", {
-        json: post,
+        json: {
+          age: 123,
+        },
       });
       router.push("/");
     } catch (error) {}

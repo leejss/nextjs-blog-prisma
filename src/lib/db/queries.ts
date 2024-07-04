@@ -19,11 +19,6 @@ export const findUser = async (where: Prisma.UserWhereUniqueInput) => {
 };
 
 export const findPosts = async () => {
-  // const result = await prisma.post.findMany({
-  //   where,
-  // });
-  // return result;
-
   const result = await prisma.post.findMany();
   return result;
 };
@@ -31,6 +26,14 @@ export const findPosts = async () => {
 export const insertPost = async (post: Prisma.PostCreateInput) => {
   const result = await prisma.post.create({
     data: post,
+    include: {
+      author: true,
+    },
   });
+  return result;
+};
+
+export const selectAllPosts = async () => {
+  const result = await prisma.post.findMany();
   return result;
 };
