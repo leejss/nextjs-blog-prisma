@@ -1,12 +1,11 @@
 import { z } from "zod";
+import { Schema } from "./utils";
 
-export const PostCreateSchema = {
-  _schema: z.object({
+export const PostCreateSchema = Schema.create(
+  z.object({
     title: z.string().min(1),
     content: z.string().min(1),
   }),
+);
 
-  validate(value: unknown) {
-    return this._schema.safeParse(value);
-  },
-};
+export type PostCreateType = z.infer<typeof PostCreateSchema._schema>;
