@@ -16,8 +16,18 @@ export async function POST(request: Request) {
       },
     );
   }
-  await insertUser(validationResult.data);
-  // Insert user with body data
+  const result = await insertUser(validationResult.data);
+  if (result.isFail()) {
+    return Response.json(
+      {
+        error: "Failed to create user",
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+
   const token = Jwt.sign(validationResult.data.email);
   return Response.json(
     {

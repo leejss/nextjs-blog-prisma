@@ -3,10 +3,14 @@ import prisma from "./db";
 import { Result } from "../helper";
 
 export const insertUser = async (user: Prisma.UserCreateInput) => {
-  const result = await prisma.user.create({
-    data: user,
-  });
-  return result;
+  try {
+    const result = await prisma.user.create({
+      data: user,
+    });
+    return Result.success(result);
+  } catch (error) {
+    return Result.fail(error as Error);
+  }
 };
 
 export const findUser = async <T extends Prisma.UserSelect>(
@@ -33,13 +37,16 @@ export const findPosts = async () => {
 };
 
 export const insertPost = async (post: Prisma.PostCreateInput) => {
-  const result = await prisma.post.create({
-    data: post,
-    include: {
-      author: true,
-    },
-  });
-  return result;
+  try {
+    const result = await prisma.post.create({
+      data: {
+        ...post,
+      },
+    });
+    return Result.success(result);
+  } catch (error) {
+    return Result.fail(error as Error);
+  }
 };
 
 export const selectAllPosts = async () => {
