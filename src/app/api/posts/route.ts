@@ -1,4 +1,4 @@
-import { Jwt } from "@/lib/jwt";
+// import { Jwt } from "@/lib/jwt";
 import { PostCreateSchema } from "@/lib/schema/post-schema";
 
 // Use Authorization header to verify the user
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   }
   // if success, save to database
   const token = authHeader.replace("Bearer ", "");
-  const email = Jwt.verify(token);
+  // const email = Jwt.verify(token);
 
   // inset data where email is the email from the token
 }

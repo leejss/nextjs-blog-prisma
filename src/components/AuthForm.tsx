@@ -1,12 +1,10 @@
 "use client";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useReducer } from "react";
-import { Button } from "../ui/button";
 import ky from "ky";
-import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
+import Input from "./Input";
+import Button from "./Button";
 
 interface AuthFormProps {
   type: "login" | "register";
@@ -45,7 +43,7 @@ export default function AuthForm({ type }: AuthFormProps) {
       confirmPassword: "",
     },
   );
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const router = useRouter();
 
   const onLoign = async () => {
@@ -59,10 +57,10 @@ export default function AuthForm({ type }: AuthFormProps) {
       });
       if (response.status === 200) {
         // toast and replace with login
-        toast({
-          title: "Logged in",
-          description: "You are now logged in",
-        });
+        // toast({
+        //   title: "Logged in",
+        //   description: "You are now logged in",
+        // });
         router.push("/");
       }
     } catch (error) {
@@ -83,10 +81,10 @@ export default function AuthForm({ type }: AuthFormProps) {
       });
       if (res.status === 201) {
         // toast and replace with login
-        toast({
-          title: "Account created",
-          description: "You can now login",
-        });
+        // toast({
+        //   title: "Account created",
+        //   description: "You can now login",
+        // });
         router.push("/login");
       }
     } catch (error) {
@@ -97,7 +95,7 @@ export default function AuthForm({ type }: AuthFormProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3">
-        <Label htmlFor="email">Email</Label>
+        <label htmlFor="email">Email</label>
         <Input
           id="email"
           value={state.email}
@@ -106,7 +104,7 @@ export default function AuthForm({ type }: AuthFormProps) {
         />
       </div>
       <div className="flex flex-col gap-3">
-        <Label htmlFor="password">Password</Label>
+        <label htmlFor="password">Password</label>
         <Input
           value={state.password}
           onChange={(e) =>
@@ -118,7 +116,7 @@ export default function AuthForm({ type }: AuthFormProps) {
       </div>
       {type === "register" && (
         <div className="flex flex-col gap-3">
-          <Label htmlFor="confirm-password">Confirm Password</Label>
+          <label htmlFor="confirm-password">Confirm Password</label>
           <Input
             value={state.confirmPassword}
             onChange={(e) =>
@@ -150,7 +148,7 @@ export default function AuthForm({ type }: AuthFormProps) {
           login: (
             <p>
               Don&apos;t have an account?{" "}
-              <Link className="underline text-blue-500" href="/register">
+              <Link data-link href="/register">
                 Register
               </Link>
             </p>
@@ -158,7 +156,7 @@ export default function AuthForm({ type }: AuthFormProps) {
           register: (
             <p>
               Already have an account?{" "}
-              <Link className="underline text-blue-500" href="/login">
+              <Link data-link href="/login">
                 Login
               </Link>
             </p>

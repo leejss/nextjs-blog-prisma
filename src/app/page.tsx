@@ -1,7 +1,10 @@
-import AllPosts from "@/components/custom/AllPosts";
-import ProfileCard from "@/components/custom/ProfileCard";
+import AllPosts from "@/components/AllPosts";
+import ProfileCard from "@/components/ProfileCard";
 
 export default async function HomePage() {
+  // GET session from cookie
+  // const session = await Session.get();
+  // and get user data from session
   return (
     <div>
       <div className="mb-10">

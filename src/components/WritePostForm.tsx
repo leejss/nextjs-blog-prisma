@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
 import { useRouter } from "next/navigation";
 import ky from "ky";
+import Input from "./Input";
+import Button from "./Button";
+import TextArea from "./Textarea";
 
 export default function WritePostForm() {
   const router = useRouter();
@@ -37,10 +36,10 @@ export default function WritePostForm() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div>
-        <Label className="font-bold" htmlFor="title">
+      <div className="flex flex-col">
+        <label className="font-bold" htmlFor="title">
           Title
-        </Label>
+        </label>
         <Input
           onChange={handleChange}
           name="title"
@@ -49,11 +48,11 @@ export default function WritePostForm() {
           placeholder="Title"
         />
       </div>
-      <div>
-        <Label className="font-bold" htmlFor="content">
+      <div className="flex flex-col">
+        <label className="font-bold" htmlFor="content">
           Content
-        </Label>
-        <Textarea
+        </label>
+        <TextArea
           onChange={handleChange}
           value={post.content}
           id="content"

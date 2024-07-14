@@ -1,4 +1,4 @@
-import WritePostForm from "@/components/custom/WritePostForm";
+import WritePostForm from "@/components/WritePostForm";
 
 export default function PostsWritePage() {
   return (

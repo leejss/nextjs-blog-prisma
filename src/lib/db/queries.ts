@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import prisma from "./db";
+import { Result } from "../helper";
 
 export const insertUser = async (user: Prisma.UserCreateInput) => {
   const result = await prisma.user.create({
@@ -8,14 +9,22 @@ export const insertUser = async (user: Prisma.UserCreateInput) => {
   return result;
 };
 
-export const findUser = async (where: Prisma.UserWhereUniqueInput) => {
-  const result = await prisma.user.findUnique({
-    where,
-    include: {
-      posts: true,
-    },
-  });
-  return result;
+export const findUser = async <T extends Prisma.UserSelect>(
+  where: Prisma.UserWhereUniqueInput,
+  select?: T,
+) => {
+  try {
+    const result = await prisma.user.findUnique({
+      where,
+      select: select as T,
+    });
+    if (!result) {
+      return Result.fail(new Error("USER_NOT_FOUND"));
+    }
+    return Result.success(result);
+  } catch (error) {
+    return Result.fail(error as Error);
+  }
 };
 
 export const findPosts = async () => {
