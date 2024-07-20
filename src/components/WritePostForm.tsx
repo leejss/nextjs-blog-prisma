@@ -27,7 +27,7 @@ export default function WritePostForm() {
     try {
       await ky.post("/api/posts", {
         json: {
-          age: 123,
+          ...post,
         },
       });
       router.push("/");

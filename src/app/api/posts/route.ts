@@ -1,4 +1,3 @@
-// import { Jwt } from "@/lib/jwt";
 import { Queries } from "@/lib/db";
 import { Jwt } from "@/lib/jwt";
 import { PostCreateSchema } from "@/lib/schema/post-schema";
@@ -7,11 +6,8 @@ import { PostCreateSchema } from "@/lib/schema/post-schema";
 // To accomplish this, we need to import the following:
 
 export async function POST(request: Request) {
-  const validation = PostCreateSchema.validate(await request.json());
-
-  // Get token from authorization header. Format is `Authriozation: Bearer <token>`
+  // Pipe A
   const authHeader = request.headers.get("Authorization");
-
   if (!authHeader) {
     return Response.json(
       {
@@ -23,6 +19,8 @@ export async function POST(request: Request) {
     );
   }
 
+  // Pipe B
+  const validation = PostCreateSchema.validate(await request.json());
   if (!validation.success) {
     return Response.json(
       {
@@ -57,6 +55,7 @@ export async function POST(request: Request) {
     content,
     author: { connect: { id } },
   });
+
   if (insertResult.isFail()) {
     return Response.json(
       {
@@ -68,6 +67,4 @@ export async function POST(request: Request) {
     );
   }
   return Response.json(insertResult.value);
-
-  // inset data where email is the email from the token
 }
