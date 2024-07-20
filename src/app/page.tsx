@@ -1,19 +1,21 @@
 import AllPosts from "@/components/AllPosts";
 import ProfileCard from "@/components/ProfileCard";
 import { Session } from "@/lib/session";
+import { redirect } from "next/navigation";
 
 export default async function HomePage() {
-  // GET session from cookie
-  // const session = await Session.get();
-  // and get user data from session
-  const user = Session.getSession();
+  const user = await Session.getSession();
+  if (!user) {
+    redirect("/login");
+  }
+  const { email } = user;
   return (
     <div>
       <div className="mb-10">
         <h1 className="text-3xl font-bold italic">Blog</h1>
       </div>
       <div className="mb-10">
-        <ProfileCard email="example@example.com" />
+        <ProfileCard email={email} />
       </div>
       <div>
         <AllPosts />

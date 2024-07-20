@@ -1,6 +1,6 @@
 import { findUser } from "@/lib/db/queries";
-import { Jwt } from "@/lib/jwt";
 import { UserLoginSchema } from "@/lib/schema/user-schema";
+import { Session } from "@/lib/session";
 
 const ERRORS = {
   USER_NOT_FOUND: "USER_NOT_FOUND",
@@ -34,11 +34,12 @@ export async function POST(request: Request) {
     }
 
     // Create JWT token
-    const token = Jwt.sign(value.email);
+    // const token = Jwt.sign(value.email);
+    await Session.save({ email });
 
     // if everything is correct
     return Response.json(
-      { token },
+      { email },
       {
         status: 200,
       },
