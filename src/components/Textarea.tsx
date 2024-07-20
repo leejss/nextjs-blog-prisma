@@ -9,7 +9,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     return (
       <textarea
         className={cn(
-          "rounded-md px-3 py-2 border-input border-2 focus-within:outline-input focus-within:border-transparent",
+          "rounded-md min-h-[300px] px-3 py-2 border-input border-2 focus-within:outline-input focus-within:border-transparent",
           className,
         )}
         {...props}

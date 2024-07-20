@@ -13,13 +13,13 @@ export default async function AllPosts() {
         {posts.map((post) => (
           <li
             key={post.id}
-            className="flex hover:scale-105 transition flex-col gap-4 border rounded-md p-4 border-black"
+            className="flex hover:scale-105 bg-white transition flex-col gap-4 border rounded-md p-4 border-black"
           >
             <div className="flex justify-between">
               <h3 className="text-xl font-bold">{post.title}</h3>
               <span>{formatDate(post.updatedAt)}</span>
             </div>
-            <p>{post.content}</p>
+            <p className="truncate">{post.content}</p>
           </li>
         ))}
       </ul>

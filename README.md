@@ -20,3 +20,7 @@ export const POST = pipe(request, validateA, validateB, businessLogic)
 - HTTP POST request
 - validate the request
 - insert data to db
+
+## TODO
+
+- post detail page

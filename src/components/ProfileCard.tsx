@@ -24,11 +24,11 @@ export default async function ProfileCard({ email }: ProfileCardProps) {
           return (
             <header className="flex flex-col gap-4">
               <div className="flex justify-between border rounded-md p-4 border-black">
-                <h1>{email}</h1>
-                <div>My Posts ({posts.length})</div>
+                <h1 className="text-primary font-bold text-lg">{email}</h1>
+                <span className="font-bold">My Posts ({posts.length})</span>
               </div>
               <Button asChild>
-                <Link href="/posts/write">Write</Link>
+                <Link href="/posts/write">WRITE</Link>
               </Button>
             </header>
           );

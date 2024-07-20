@@ -26,6 +26,10 @@ const config = {
           onSecondary: "#fff",
         },
       },
+      colors: {
+        primary: Colors.indigo["500"],
+        secondary: Colors.amber["500"],
+      },
       backgroundColor: {
         btn: {
           primary: Colors.indigo["500"],
