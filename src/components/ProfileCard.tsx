@@ -22,9 +22,11 @@ export default async function ProfileCard({ email }: ProfileCardProps) {
         .with({ _tag: "Success" }, ({ value }) => {
           const { email, posts } = value;
           return (
-            <header>
-              <h1>{email}</h1>
-              <div>My Posts ({posts.length})</div>
+            <header className="flex flex-col gap-4">
+              <div className="flex justify-between border rounded-md p-4 border-black">
+                <h1>{email}</h1>
+                <div>My Posts ({posts.length})</div>
+              </div>
               <Button asChild>
                 <Link href="/posts/write">Write</Link>
               </Button>

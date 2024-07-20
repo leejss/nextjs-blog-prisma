@@ -15,6 +15,7 @@ type EitherResult<A, E> =
       type: "success";
       data: A;
     };
+
 export function checkAuth(
   req: Request,
 ): EitherResult<{ email: string }, { message: string }> {
@@ -45,3 +46,11 @@ export function checkAuth(
     },
   };
 }
+
+export const formatDate = (date: Date | string | number) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};

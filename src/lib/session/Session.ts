@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 const cookieName = "session";
 const secret = new TextEncoder().encode("secret");
-const expirationTime = "30sec";
+const expirationTime = "10m";
 const alg = "HS256";
 
 const sign = (userData: { email: string }) => {
@@ -33,12 +33,16 @@ const verify = async (token: string) => {
 };
 
 export const getSession = async () => {
-  // Get session from the cookie
-  // read cookie and verifyit
-  const token = cookies().get(cookieName);
-  if (!token) return null;
-  const userData = await verify(token.value);
-  return userData;
+  try {
+    // Get session from the cookie
+    // read cookie and verifyit
+    const token = cookies().get(cookieName);
+    if (!token) return null;
+    const userData = await verify(token.value);
+    return userData;
+  } catch (error) {
+    return null;
+  }
 };
 export const save = async (userData: { email: string }) => {
   const jwt = await sign(userData);

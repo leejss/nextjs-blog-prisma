@@ -1,14 +1,15 @@
 import { Queries } from "@/lib/db";
-import { Jwt } from "@/lib/jwt";
 import { PostCreateSchema } from "@/lib/schema/post-schema";
+import { Session } from "@/lib/session";
+import { revalidatePath } from "next/cache";
 
 // Use Authorization header to verify the user
 // To accomplish this, we need to import the following:
 
 export async function POST(request: Request) {
   // Pipe A
-  const authHeader = request.headers.get("Authorization");
-  if (!authHeader) {
+  const userData = await Session.getSession();
+  if (!userData) {
     return Response.json(
       {
         error: "UNAUTHORIZED",
@@ -32,11 +33,8 @@ export async function POST(request: Request) {
     );
   }
 
-  // if success, save to database
-  const token = authHeader.replace("Bearer ", "");
-  const email = Jwt.verify(token);
-
   // find user by email
+  const { email } = userData;
   const findResult = await Queries.findUser({ email }, { id: true });
   if (findResult.isFail()) {
     return Response.json(
@@ -66,5 +64,7 @@ export async function POST(request: Request) {
       },
     );
   }
+
+  revalidatePath("/");
   return Response.json(insertResult.value);
 }
