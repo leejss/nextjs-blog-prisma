@@ -21,6 +21,14 @@ export const POST = pipe(request, validateA, validateB, businessLogic)
 - validate the request
 - insert data to db
 
+## Applying server action
+
+- mutating the remote data using the server action
+
 ## TODO
 
-- post detail page
+- delete post
+  - click delete button
+  - show confirmation dialog
+  - delete post with server action
+- edit post

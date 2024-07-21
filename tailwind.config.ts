@@ -20,20 +20,20 @@ const config = {
     },
     extend: {
       textColor: {
+        primary: Colors.indigo["500"],
+        secondary: Colors.amber["500"],
         link: Colors.indigo["500"],
         btn: {
           onPrimary: "#fff",
           onSecondary: "#fff",
+          onWarn: "#fff",
         },
-      },
-      colors: {
-        primary: Colors.indigo["500"],
-        secondary: Colors.amber["500"],
       },
       backgroundColor: {
         btn: {
           primary: Colors.indigo["500"],
           secondary: Colors.amber["500"],
+          warn: Colors.red["500"],
         },
       },
       borderColor: {

@@ -1,3 +1,37 @@
-export default async function PostDetailPage() {
-  return <div></div>;
+import Button from "@/components/Button";
+import { selectPostById } from "@/lib/db/queries";
+import { formatDate } from "@/lib/utils";
+
+export default async function PostDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const result = await selectPostById(+params.id);
+  if (result.isFail()) {
+    return <div>{result.error.message}</div>;
+  }
+  const { title, updatedAt, content } = result.value;
+  return (
+    <div className="flex flex-col h-[90vh]">
+      <section>
+        <header className="pb-4 border-b border-black">
+          <h1 className="text-2xl font-bold">{title}</h1>
+          <span className="text-sm text-gray-500">{formatDate(updatedAt)}</span>
+        </header>
+        <div className="mt-4">
+          <p>{content}</p>
+        </div>
+      </section>
+      <div className="flex  gap-4 mt-auto">
+        {/* Go to edit page */}
+        <Button className="flex-1">EDIT</Button>
+
+        {/* Delete form  */}
+        <Button type="submit" className="flex-1" variant="warn">
+          DELETE
+        </Button>
+      </div>
+    </div>
+  );
 }

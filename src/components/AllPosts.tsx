@@ -1,5 +1,6 @@
 import { selectAllPosts } from "@/lib/db/queries";
 import { formatDate } from "@/lib/utils";
+import Link from "next/link";
 
 export default async function AllPosts() {
   // get all posts from db
@@ -15,11 +16,13 @@ export default async function AllPosts() {
             key={post.id}
             className="flex hover:scale-105 bg-white transition flex-col gap-4 border rounded-md p-4 border-black"
           >
-            <div className="flex justify-between">
-              <h3 className="text-xl font-bold">{post.title}</h3>
-              <span>{formatDate(post.updatedAt)}</span>
-            </div>
-            <p className="truncate">{post.content}</p>
+            <Link href={`/posts/${post.id}`}>
+              <div className="flex justify-between">
+                <h3 className="text-xl font-bold">{post.title}</h3>
+                <span>{formatDate(post.updatedAt)}</span>
+              </div>
+              <p className="truncate">{post.content}</p>
+            </Link>
           </li>
         ))}
       </ul>

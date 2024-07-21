@@ -11,6 +11,7 @@ const buttonStyles = cva(
         primary: "bg-btn-primary text-btn-onPrimary hover:bg-btn-primary/90",
         secondary:
           "bg-btn-secondary text-btn-onSecondary hover:bg-btn-secondary/90",
+        warn: "bg-btn-warn text-btn-onWarn hover:bg-btn-warn/90",
       },
       size: {
         sm: "px-4 py-2 text-sm",
