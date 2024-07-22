@@ -3,10 +3,7 @@ import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 
 export default async function AllPosts() {
-  // get all posts from db
   const posts = await selectAllPosts();
-  // Render all posts
-  console.log("All posts: ", posts);
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">My Posts</h2>

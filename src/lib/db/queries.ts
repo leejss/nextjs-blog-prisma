@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import prisma from "./db";
 import { Result } from "../helper";
+import { revalidatePath } from "next/cache";
 
 const errorCode = {
   USER_NOT_FOUND: "USER_NOT_FOUND",
@@ -79,6 +80,7 @@ export const deletePostById = async (id: number) => {
         id,
       },
     });
+    revalidatePath("/");
     return Result.success(true);
   } catch (error) {
     return Result.fail(error as Error);

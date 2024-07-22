@@ -25,11 +25,13 @@ export default function WritePostForm() {
 
   const submit = async () => {
     try {
-      await ky.post("/api/posts", {
-        json: {
-          ...post,
-        },
-      });
+      const result = await ky
+        .post("/api/posts", {
+          json: {
+            ...post,
+          },
+        })
+        .json();
       router.push("/");
     } catch (error) {}
   };

@@ -28,7 +28,5 @@ export const POST = pipe(request, validateA, validateB, businessLogic)
 ## TODO
 
 - delete post
-  - click delete button
-  - show confirmation dialog
-  - delete post with server action
+  - Fix delete bug
 - edit post
