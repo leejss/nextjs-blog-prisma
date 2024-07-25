@@ -44,6 +44,7 @@ export const insertPost = async (post: Prisma.PostCreateInput) => {
         ...post,
       },
     });
+
     return Result.success(result);
   } catch (error) {
     return Result.fail(error as Error);
@@ -80,7 +81,6 @@ export const deletePostById = async (id: number) => {
         id,
       },
     });
-    revalidatePath("/");
     return Result.success(true);
   } catch (error) {
     return Result.fail(error as Error);

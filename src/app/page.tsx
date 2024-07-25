@@ -3,6 +3,8 @@ import ProfileCard from "@/components/ProfileCard";
 import { Session } from "@/lib/session";
 import { redirect } from "next/navigation";
 
+export const revalidate = 0;
+
 export default async function HomePage() {
   const user = await Session.getSession();
   if (!user) {

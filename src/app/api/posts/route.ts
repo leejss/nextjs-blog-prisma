@@ -64,8 +64,6 @@ export async function POST(request: Request) {
       },
     );
   }
-
   revalidatePath("/");
-
   return Response.json(insertResult.value);
 }

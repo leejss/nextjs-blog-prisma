@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ky from "ky";
@@ -32,6 +31,7 @@ export default function WritePostForm() {
           },
         })
         .json();
+      console.log("result", result);
       router.push("/");
     } catch (error) {}
   };
