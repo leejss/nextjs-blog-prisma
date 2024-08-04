@@ -14,7 +14,6 @@ export default function DeletePostButton({ postId }: DeletePostButtonProps) {
     <>
       <Button
         onClick={() => {
-          // Show dlialog
           setShowDialog(true);
         }}
         type="submit"

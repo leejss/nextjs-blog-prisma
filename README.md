@@ -30,3 +30,9 @@ export const POST = pipe(request, validateA, validateB, businessLogic)
 - delete post
   - Fix delete bug
 - edit post
+
+## Revalidation
+
+- call delete action or delete route handler
+- revalidate home route
+- and then home route should be dynamically rendered next time

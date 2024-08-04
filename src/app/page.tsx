@@ -2,8 +2,7 @@ import AllPosts from "@/components/AllPosts";
 import ProfileCard from "@/components/ProfileCard";
 import { Session } from "@/lib/session";
 import { redirect } from "next/navigation";
-
-export const revalidate = 0;
+import { Suspense } from "react";
 
 export default async function HomePage() {
   const user = await Session.getSession();
@@ -20,7 +19,9 @@ export default async function HomePage() {
         <ProfileCard email={email} />
       </div>
       <div>
-        <AllPosts />
+        <Suspense fallback={null}>
+          <AllPosts />
+        </Suspense>
       </div>
     </div>
   );

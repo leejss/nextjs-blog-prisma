@@ -1,9 +1,8 @@
+"use client";
 import Button from "@/components/Button";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import { deletePostAction } from "../_actions";
-import { useFormState } from "react-dom";
 import { useRouter } from "next/navigation";
+import { useRef } from "react";
 
 interface DeleteDialogProps {
   close: () => void;
@@ -12,7 +11,6 @@ interface DeleteDialogProps {
 
 export default function DeleteDialog({ close, postId }: DeleteDialogProps) {
   const router = useRouter();
-  const [state, formAction] = useFormState(deletePostAction, false);
   const varaints = useRef({
     initial: {
       opacity: 0,
@@ -22,12 +20,13 @@ export default function DeleteDialog({ close, postId }: DeleteDialogProps) {
     },
   });
 
-  useEffect(() => {
-    console.log("state", state);
-    if (state) {
-      router.replace("/");
-    }
-  }, [state, router]);
+  const deletePost = async () => {
+    await fetch(`/api/posts/${postId}`, {
+      method: "DELETE",
+    });
+
+    location.replace("/");
+  };
 
   return (
     <motion.div
@@ -48,20 +47,21 @@ export default function DeleteDialog({ close, postId }: DeleteDialogProps) {
               Are you sure you want to delete this post?
             </h1>
           </header>
-          <form action={formAction} className="flex gap-4">
+          <div className="flex gap-4">
             <Button
               name="postId"
               value={postId}
               type="submit"
               variant="warn"
               className="flex-1"
+              onClick={deletePost}
             >
               CONFIRM
             </Button>
             <Button onClick={close} className="flex-1">
               CANCEL
             </Button>
-          </form>
+          </div>
         </motion.section>
       </div>
     </motion.div>

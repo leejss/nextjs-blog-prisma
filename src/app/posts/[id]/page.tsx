@@ -25,9 +25,7 @@ export default async function PostDetailPage({
         </div>
       </section>
       <div className="flex  gap-4 mt-auto">
-        {/* Go to edit page */}
         <Button className="flex-1">EDIT</Button>
-        {/* Delete form  */}
         <DeletePostButton postId={id} />
       </div>
     </div>
