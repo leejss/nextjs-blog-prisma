@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "@/components/Toast";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,7 +20,8 @@ export default function RootLayout({
       <title>next-js-blog</title>
       <body className={inter.className}>
         <>
-          <div className="container mx-auto py-10">{children}</div>
+          <>{children}</>
+          <Toaster />
         </>
       </body>
     </html>
